@@ -1,0 +1,114 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      UserRole @default(USER)
+  phone     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model UpcomingIpo {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  priceBand   String
+  openDate    String
+  closeDate   String
+  issueSize   String
+  issueType   String
+  listingDate String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model OngoingIpo {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  priceBand   String
+  openDate    String
+  closeDate   String
+  issueSize   String
+  issueType   String
+  listingDate String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model NewListedIpo {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  priceBand   String
+  openDate    String
+  closeDate   String
+  issueSize   String
+  issueType   String
+  listingDate String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model AllSector {
+  id         String @id @default(uuid())
+  sectorName String @unique
+  sectorDesc String
+  sectorType String
+}
+
+model Sector {
+  id             String   @id @default(uuid())
+  sectorName     String   @unique
+  sectorDesc     String
+  largeCap       Json
+  midCap         Json
+  smallCap       Json
+  marketInsights Json
+  opportunities  Json
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Blog {
+  id          String   @id @default(uuid())
+  heading     String   @unique
+  image       String
+  publishDate DateTime @default(now())
+  link        String
+}
+
+model SharkInvestor {
+  id                 String   @id @default(uuid())
+  image              String
+  sharkName          String   @unique
+  description        String
+  netWorth           String
+  portfolio          String
+  sectorFocus        Json
+  stageFocus         Json
+  notableInvestments Json
+  achievements       Json
+  link               String
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
